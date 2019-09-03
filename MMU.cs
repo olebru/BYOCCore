@@ -59,6 +59,8 @@ namespace BYOCCore
 
             lines.Add("loadcs");
             lines.Add("outputcs");
+            lines.Add("select0stack");
+
 
             return lines;
 
