@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BYOCCore
 {
@@ -206,11 +206,9 @@ namespace BYOCCore
                 completeROM.Add(mc);
             }
 
-            if (this.OpCodeAddressSpaceUsedInPercent() > 25 )
+            if (this.OpCodeAddressSpaceUsedInPercent() > 99 )
             {
-                Console.WriteLine($"{this.OpCodeAddressSpaceUsedInPercent()}% of availble address space for microinstructions used!");
-                Console.WriteLine("Will overflow programcounter at 100%.");
-                Console.ReadLine();
+                throw new Exception("OpCode AddressSpace is exhausted, optimize...");
             }
 
         }
@@ -234,17 +232,6 @@ namespace BYOCCore
         }
 
 
-        public void DumpAllValidAssemblyInstructions()
-        {
-            var instructions = completeROM.Select(i => i.Mnemonic).Distinct();
-
-            foreach (var instruction in instructions)
-            {
-                Console.WriteLine(instruction);
-            }
-            Console.ReadLine();
-        }
-
         public List<MicroInstruction> FetchInstruction(Byte StatusRegisterValue, Byte InstructionRegisterValue)
         {
           
@@ -255,17 +242,6 @@ namespace BYOCCore
             return completeROM.Where(m => m.OPCode == fullOpCode).ToList<MicroInstruction>();
         }
 
-        public void DumpBinaryContent()
-        {
-            foreach (var item in completeROM.OrderBy(o=>o.OPCode))
-            {
-                int idx = completeROM.IndexOf(item);
-                Console.WriteLine(item.OPCode + " " +item.Mnemonic +" " + item.DeviceID + " " + item.Function);
-                
-
-            }
-            Console.ReadLine();
-
-        }
+        
     }
 }

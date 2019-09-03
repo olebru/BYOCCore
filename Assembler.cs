@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BYOCCore
 {
@@ -23,12 +22,12 @@ namespace BYOCCore
 
         public byte[] Assemble() { return Assemble(Properties.Resources.examplesrc);}
 
-        public byte[] Assemble(string sourceFilePath)
+        public byte[] Assemble(string source)
         {
 
 
             //First pass
-            using (var sr = new System.IO.StreamReader(sourceFilePath))
+            using (var sr = new System.IO.StreamReader(source))
             {
                 int address = 0;
                 
@@ -59,12 +58,11 @@ namespace BYOCCore
             }
 
             //Second pass
-            using (var sr = new System.IO.StreamReader(sourceFilePath))
+            using (var sr = new System.IO.StreamReader(source))
             {
                 while (!sr.EndOfStream)
                 {
                     string line = sr.ReadLine();
-                  Console.WriteLine(line);
                     var tokens = line.Split('\t');
 
                     string mnemonic = tokens[1];
